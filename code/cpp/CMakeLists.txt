@@ -1,7 +1,6 @@
 project(ot)
 
-cmake_minimum_required(VERSION 2.6)
-cmake_policy(VERSION 2.6)
+cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS true)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
@@ -38,10 +37,11 @@ if(USE_OPENMP)
     find_package(OpenMP)
 endif(USE_OPENMP)
 
-find_package(GLUT)
-find_package(OpenGL)
+find_package(OpenGL REQUIRED)
+find_package(GLUT REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(Eigen3 REQUIRED)
 
-find_package(Eigen3)
 #-------#
 # Files #
 #-------#
@@ -54,10 +54,10 @@ set(SRCS ${GUI_SRC} ${OT_SRC} main.cpp)
 # INCLUDES #
 #----------#
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-long-long")
-
-include_directories(${GLUT_INCLUDE_DIR})
-include_directories(${OPENGL_INCLUDE_DIR})
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-long-long")
+include_directories(${OPENGL_INCLUDE_DIRS})
+include_directories(${GLUT_INCLUDE_DIRS})
+include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(${EIGEN3_INCLUDE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ot)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gui)
@@ -77,4 +77,4 @@ if(USE_OPENMP AND OPENMP_FOUND)
 endif()
 
 add_executable(${PROJECT_NAME} ${SRCS})
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES})

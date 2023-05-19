@@ -7,6 +7,7 @@
 #include "ot/ConvSolver.h"
 #include "ot/TriMesh.h"
 #include <set>
+#include <iostream>
 
 class Viewer
 {

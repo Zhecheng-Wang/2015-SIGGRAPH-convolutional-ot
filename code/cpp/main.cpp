@@ -1,4 +1,6 @@
 #include "Viewer.h"
+#include <iostream>
+#include <unistd.h> 
 
 bool parseCmdLine(int argc, char** argv, 
                   ot::Options& opt, 
